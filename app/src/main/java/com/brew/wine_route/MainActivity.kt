@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
             WineRouteTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
-                        name = "Android",
+                        name = "Android!",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
