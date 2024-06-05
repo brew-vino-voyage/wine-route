@@ -14,4 +14,4 @@
 .cxx
 local.properties
 google-services.json
-app/secrets.xml
+/app/secrets.xml
