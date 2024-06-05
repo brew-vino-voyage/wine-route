@@ -54,7 +54,7 @@ fun LoginScreen() {
 @Composable
 fun ChoiceButton(text: String, position: Float) {
     Button(
-        onClick = { /*TODO*/ },
+        onClick = {  },
         modifier = Modifier
             .fillMaxWidth(position)
     ) {
