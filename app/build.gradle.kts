@@ -58,7 +58,6 @@ dependencies {
     implementation(libs.firebase.ui.auth)
     implementation(libs.facebook.login)
     implementation(libs.androidx.core.ktx.v1131)
-    implementation(libs.coil.bom)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
