@@ -55,6 +55,7 @@ dependencies {
     implementation(libs.firebase.storage)
     implementation(libs.firebase.auth.ktx)
     implementation(libs.firebase.firestore.ktx)
+    implementation(libs.android.facebook.login)
     implementation(libs.firebase.ui.auth)
     implementation(libs.facebook.login)
     implementation(libs.androidx.core.ktx.v1131)
