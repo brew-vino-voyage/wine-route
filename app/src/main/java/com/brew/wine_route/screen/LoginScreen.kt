@@ -56,6 +56,9 @@ fun LoginScreen() {
             value = email,
             onValueChange = { email = it },
             label = {
+                Text(text = "이메일")
+            },
+            placeholder = {
                 Text(text = "이메일을 입력하세요")
             },
             imageVector = Icons.Rounded.Close
@@ -66,6 +69,9 @@ fun LoginScreen() {
             value = password,
             onValueChange = { password = it },
             label = {
+                Text(text = "비밀번호")
+            },
+            placeholder = {
                 Text(text = "**********")
             },
             hidePassword = hidePassword,
@@ -94,6 +100,7 @@ fun LoginTextField(
     value: String,
     onValueChange: (String) -> Unit,
     label: @Composable () -> Unit,
+    placeholder: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     hidePassword: Boolean = false,
     imageVector: ImageVector,
@@ -103,6 +110,7 @@ fun LoginTextField(
         value = value,
         onValueChange = onValueChange,
         label = label,
+        placeholder = placeholder,
         keyboardOptions = if (value == "password" && hidePassword) KeyboardOptions(keyboardType = KeyboardType.Password) else KeyboardOptions.Default,
         visualTransformation = if (hidePassword) PasswordVisualTransformation() else VisualTransformation.None,
         maxLines = 1,
