@@ -23,6 +23,7 @@ import androidx.compose.material.icons.rounded.TabletAndroid
 import androidx.compose.material.icons.rounded.Visibility
 import androidx.compose.material.icons.rounded.VisibilityOff
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
@@ -34,6 +35,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -44,6 +46,8 @@ import androidx.compose.ui.tooling.preview.Preview
 @Preview(showBackground = true)
 @Composable
 fun LoginScreen() {
+    var clickLogin by remember { mutableStateOf(true) }
+    var clickSignup by remember { mutableStateOf(false) }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var hidePassword by remember { mutableStateOf(true) }
@@ -57,15 +61,19 @@ fun LoginScreen() {
         ) {
             SignChoiceButton(
                 text = "로그인",
-                position = 0.5f
+                position = 0.5f,
+                clickButton = clickLogin,
             ) {
-                // click login button
+                clickLogin = true
+                clickSignup = false
             }
             SignChoiceButton(
                 text = "회원가입",
-                position = 1f
+                position = 1f,
+                clickButton = clickSignup,
             ) {
-                // click sign up button
+                clickLogin = false
+                clickSignup = true
             }
         }
         LoginTextField(
@@ -95,45 +103,62 @@ fun LoginScreen() {
         ) {
             hidePassword = !hidePassword
         }
-        GoNextButton(
-            text = "로그인"
-        ) {
-            // click login button
-        }
-        Button(
-            onClick = {
-                // click forget password
-            },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(text = "비밀번호를 잊으셨나요?")
-        }
-        Text(
-            text = "또는",
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
-        )
-        Row(
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            SocialLoginButton(imageVector = Icons.Rounded.TabletAndroid) {
-                
+        if (clickLogin) {
+            GoNextButton(
+                text = "로그인"
+            ) {
+                // click login button
             }
-            SocialLoginButton(imageVector = Icons.Rounded.Laptop) {
-                
+        } else {
+            GoNextButton(
+                text = "회원가입"
+            ) {
+                // click signup button
             }
-            SocialLoginButton(imageVector = Icons.Rounded.DesktopMac) {
-                
+        }
+        if (clickLogin) {
+            Button(
+                onClick = {
+                    // click forget password
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(text = "비밀번호를 잊으셨나요?")
             }
         }
     }
+    Text(
+        text = "또는",
+        textAlign = TextAlign.Center,
+        modifier = Modifier.fillMaxWidth()
+    )
+    Row(
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        SocialLoginButton(imageVector = Icons.Rounded.TabletAndroid) {
+
+        }
+        SocialLoginButton(imageVector = Icons.Rounded.Laptop) {
+
+        }
+        SocialLoginButton(imageVector = Icons.Rounded.DesktopMac) {
+
+        }
+    }
+}
 }
 
 @Composable
-fun SignChoiceButton(text: String, position: Float, onClick: () -> Unit) {
+fun SignChoiceButton(
+    text: String,
+    position: Float,
+    clickButton: Boolean,
+    onClick: () -> Unit
+) {
     Button(
         onClick = onClick,
+        colors = ButtonDefaults.buttonColors(if (!clickButton) Color.Transparent else Color.Blue),
         modifier = Modifier
             .fillMaxWidth(position)
     ) {
