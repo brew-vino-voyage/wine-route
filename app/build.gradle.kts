@@ -51,12 +51,10 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.credentials)
-    implementation(libs.androidx.credentials.play.services.auth)
-    implementation(libs.googleid)
     implementation(platform(libs.firebase.bom))
+    implementation(libs.play.services.auth)
     implementation(libs.firebase.storage)
-    implementation(libs.firebase.auth.ktx)
+    implementation(libs.google.firebase.auth.ktx)
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.android.facebook.login)
     implementation(libs.firebase.ui.auth)
