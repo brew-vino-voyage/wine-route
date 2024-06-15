@@ -28,8 +28,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.brew.wine_route.R
-import com.brew.wine_route.model.firebaseAuth.handleFailure
-import com.brew.wine_route.model.firebaseAuth.handleSignIn
+import com.brew.wine_route.model.signInHandler.handleFailure
+import com.brew.wine_route.model.signInHandler.handleSignIn
 import com.brew.wine_route.ui.WineRouteAppBar
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.firebase.auth.FirebaseUser
