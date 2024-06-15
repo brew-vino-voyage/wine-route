@@ -10,12 +10,12 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.brew.wine_route.R
-import com.brew.wine_route.navigation.WineRouteScreen
+import com.brew.wine_route.navigation.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WineRouteAppBar(
-    currentScreen: WineRouteScreen,
+    currentScreen: Screen,
     canNavigateBack: Boolean,
     navigateUp: () -> Unit = {},
 ) {
