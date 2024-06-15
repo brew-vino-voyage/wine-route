@@ -135,6 +135,9 @@ fun LoginScreen() {
         SocialLoginButton(imageVector = Icons.Rounded.DesktopMac) {
 
         }
+        SocialLoginButton(imageVector = Icons.Rounded.DesktopMac) {
+
+        }
     }
 }
 
