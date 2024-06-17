@@ -1,22 +1,23 @@
 package com.brew.wine_route.screen
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Close
-import androidx.compose.material.icons.rounded.DesktopMac
-import androidx.compose.material.icons.rounded.Laptop
-import androidx.compose.material.icons.rounded.TabletAndroid
 import androidx.compose.material.icons.rounded.Visibility
 import androidx.compose.material.icons.rounded.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,11 +28,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.brew.wine_route.R
 
 @Preview(showBackground = true)
 @Composable
@@ -116,27 +120,40 @@ fun LoginScreen() {
                 Text(text = "비밀번호를 잊으셨나요?")
             }
         }
-    }
-    Text(
-        text = "또는",
-        textAlign = TextAlign.Center,
-        modifier = Modifier.fillMaxWidth()
-    )
-    Row(
-        horizontalArrangement = Arrangement.SpaceEvenly,
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        SocialLoginButton(imageVector = Icons.Rounded.TabletAndroid) {
+        Text(
+            text = "또는",
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
+        )
+        Row(
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            SocialLoginButton(
+                painterResource = R.drawable.google_logo
+            ) {
 
-        }
-        SocialLoginButton(imageVector = Icons.Rounded.Laptop) {
+            }
+            SocialLoginButton(
+                painterResource = R.drawable.facebook_logo_primary,
+                color = Color.White
+            ) {
 
-        }
-        SocialLoginButton(imageVector = Icons.Rounded.DesktopMac) {
+            }
+            SocialLoginButton(
+                painterResource = R.drawable.kakaotalk_logo,
+                color = Color(0xFFFFEB00),
+                modifier = Modifier
+                    .size(40.dp)
+                    .padding(top = 2.dp, start = 1.dp)
+            ) {
 
-        }
-        SocialLoginButton(imageVector = Icons.Rounded.DesktopMac) {
+            }
+            SocialLoginButton(
+                painterResource = R.drawable.twitter_logo_lightmode
+            ) {
 
+            }
         }
     }
 }
@@ -200,8 +217,23 @@ fun GoNextButton(text: String, onClick: () -> Unit) {
 }
 
 @Composable
-fun SocialLoginButton(imageVector: ImageVector, onClick: () -> Unit) {
-    IconButton(onClick = onClick) {
-        Icon(imageVector = imageVector, contentDescription = null)
+fun SocialLoginButton(
+    modifier: Modifier = Modifier,
+    painterResource: Int,
+    color: Color = Color.Transparent,
+    onClick: () -> Unit
+) {
+    IconButton(
+        onClick = onClick,
+        colors = IconButtonDefaults.iconButtonColors(color),
+        modifier = Modifier
+            .size(40.dp)
+            .padding(0.dp)
+    ) {
+        Image(
+            painter = painterResource(id = painterResource),
+            contentDescription = null,
+            modifier = modifier
+        )
     }
 }
