@@ -51,15 +51,18 @@ android {
 }
 
 dependencies {
-    implementation("androidx.credentials:credentials:1.2.2")
-    implementation("androidx.credentials:credentials-play-services-auth:1.2.2")
-    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.0")
+    val credentialVersion = "1.2.2"
+    val googleIdVersion = "1.1.0"
+    implementation("androidx.credentials:credentials:$credentialVersion")
+    implementation("androidx.credentials:credentials-play-services-auth:$credentialVersion")
+    implementation("com.google.android.libraries.identity.googleid:googleid:$googleIdVersion")
     implementation(platform(libs.firebase.bom))
     implementation(libs.play.services.auth)
     implementation(libs.firebase.storage)
     implementation(libs.google.firebase.auth.ktx)
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.android.facebook.login)
+    implementation(libs.facebook.android.sdk)
     implementation(libs.firebase.ui.auth)
     implementation(libs.facebook.login)
     implementation(libs.androidx.core.ktx.v1131)

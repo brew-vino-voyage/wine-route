@@ -28,6 +28,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.brew.wine_route.R
+import com.brew.wine_route.model.signInHandler.EmailPasswordActivity
+import com.brew.wine_route.model.signInHandler.FacebookLoginActivity
+import com.brew.wine_route.model.signInHandler.KakaoLoginActivity
+import com.brew.wine_route.model.signInHandler.LoginProcessStarter
+import com.brew.wine_route.model.signInHandler.XLoginActivity
 import com.brew.wine_route.model.signInHandler.handleFailure
 import com.brew.wine_route.model.signInHandler.handleSignIn
 import com.brew.wine_route.ui.WineRouteAppBar
@@ -50,8 +55,6 @@ fun WineRouteNavHost() {
     } else {
         Screen.SignIn.route
     }
-    val context = LocalContext.current
-    val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
         topBar = {
@@ -72,31 +75,11 @@ fun WineRouteNavHost() {
         ) {
             composable(Screen.SignIn.route) {
                 LoginScreen(
-                    onSignInClick = {
-                        val credentialManager = CredentialManager.create(context)
-
-                        val googleIdOption: GetGoogleIdOption = GetGoogleIdOption.Builder()
-                            .setFilterByAuthorizedAccounts(false)
-                            .setServerClientId(getString(context, R.string.web_client_id))
-                            .setAutoSelectEnabled(true)
-                            .build()
-
-                        val request: GetCredentialRequest = GetCredentialRequest.Builder()
-                            .addCredentialOption(googleIdOption)
-                            .build()
-
-                        coroutineScope.launch {
-                            try {
-                                val result = credentialManager.getCredential(
-                                    request = request,
-                                    context = context,
-                                )
-                                handleSignIn(result, navController)
-                            } catch (e: GetCredentialException) {
-                                handleFailure(e, navController)
-                            }
-                        }
-                    }
+                    navController = navController,
+                    emailPasswordLogin = EmailPasswordActivity(),
+                    facebookLogin = FacebookLoginActivity(),
+                    kakaoLogin = KakaoLoginActivity(),
+                    xLogin = XLoginActivity(),
                 )
             }
             composable(Screen.Home.route) {
@@ -125,6 +108,7 @@ fun WineRouteNavHost() {
     }
 }
 
+
 // TODO: 임시로 만든 홈 화면
 @Composable
 fun HomeScreen(
@@ -151,18 +135,65 @@ fun HomeScreen(
 
 // TODO: 임시로 만든 로그인 화면
 @Composable
-fun LoginScreen(onSignInClick: () -> Unit) {
+fun LoginScreen(
+    navController: NavHostController = rememberNavController(),
+    emailPasswordLogin: LoginProcessStarter,
+    facebookLogin: LoginProcessStarter,
+    kakaoLogin: LoginProcessStarter,
+    xLogin: LoginProcessStarter,
+) {
+    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
+
     Box {
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Button(onClick = emailPasswordLogin::startLoginProcess) {
+                Text(text = "이메일/비밀번호로 로그인")
+            }
             Image(
                 painter = painterResource(id = R.drawable.google_icon_light),
                 contentDescription = "Google Sign In",
-                modifier = Modifier.clickable(onClick = onSignInClick)
+                modifier = Modifier.clickable(
+                    onClick = {
+                        val credentialManager = CredentialManager.create(context)
+
+                        val googleIdOption: GetGoogleIdOption = GetGoogleIdOption.Builder()
+                            .setFilterByAuthorizedAccounts(false)
+                            .setServerClientId(getString(context, R.string.web_client_id))
+                            .setAutoSelectEnabled(true)
+                            .build()
+
+                        val request: GetCredentialRequest = GetCredentialRequest.Builder()
+                            .addCredentialOption(googleIdOption)
+                            .build()
+
+                        coroutineScope.launch {
+                            try {
+                                val result = credentialManager.getCredential(
+                                    request = request,
+                                    context = context,
+                                )
+                                handleSignIn(result, navController)
+                            } catch (e: GetCredentialException) {
+                                handleFailure(e, navController)
+                            }
+                        }
+                    }
+                )
             )
+            Button(onClick = facebookLogin::startLoginProcess) {
+                Text(text = "Facebook Sign In")
+            }
+            Button(onClick = kakaoLogin::startLoginProcess) {
+                Text(text = "Kakao Sign In")
+            }
+            Button(onClick = xLogin::startLoginProcess) {
+                Text(text = "xLogin Sign In")
+            }
         }
     }
 }

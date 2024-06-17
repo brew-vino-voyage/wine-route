@@ -9,7 +9,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class EmailPasswordActivity : ComponentActivity() {
+class EmailPasswordActivity : ComponentActivity(), LoginProcessStarter {
     private lateinit var auth: FirebaseAuth
 
     public override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +22,13 @@ class EmailPasswordActivity : ComponentActivity() {
         val currentUser = auth.currentUser
         if (currentUser != null) { reload() }
         updateUI(currentUser)
+    }
+
+    override fun startLoginProcess() {
+        // 이메일-비밀번호 로그인 프로세스 시작
+        // 텍스트필드에서 값을 입력받으면 그 값을 이용해 로그인 프로세스를 시작하기
+        createAccount("email@example.com", "password")
+        signIn("user@example.com", "password")
     }
 
     private fun createAccount(email: String, password: String) {
