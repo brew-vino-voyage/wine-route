@@ -28,7 +28,6 @@ fun handleSignIn(result: GetCredentialResponse, navController: NavController) {
                         if (task.isSuccessful) {
                             Log.d(TAG, "signInWithCredential:success")
                             navController.navigate(Screen.Home.route)
-                            Log.d(TAG, "Navigation to HOME screen triggered") // Add this line
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.exception)
                         }
