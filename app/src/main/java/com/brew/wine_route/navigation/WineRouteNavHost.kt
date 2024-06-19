@@ -29,7 +29,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.brew.wine_route.R
 import com.brew.wine_route.model.signInHandler.EmailPasswordActivity
-import com.brew.wine_route.model.signInHandler.FacebookLoginActivity
+import com.brew.wine_route.model.signInHandler.HandleSignInWithFacebook
 import com.brew.wine_route.model.signInHandler.KakaoLoginActivity
 import com.brew.wine_route.model.signInHandler.LoginProcessStarter
 import com.brew.wine_route.model.signInHandler.XLoginActivity
@@ -41,6 +41,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
+
 
 @Composable
 fun WineRouteNavHost() {
@@ -77,7 +78,6 @@ fun WineRouteNavHost() {
                 LoginScreen(
                     navController = navController,
                     emailPasswordLogin = EmailPasswordActivity(),
-                    facebookLogin = FacebookLoginActivity(),
                     kakaoLogin = KakaoLoginActivity(),
                     xLogin = XLoginActivity(),
                 )
@@ -138,7 +138,6 @@ fun HomeScreen(
 fun LoginScreen(
     navController: NavHostController = rememberNavController(),
     emailPasswordLogin: LoginProcessStarter,
-    facebookLogin: LoginProcessStarter,
     kakaoLogin: LoginProcessStarter,
     xLogin: LoginProcessStarter,
 ) {
@@ -185,12 +184,12 @@ fun LoginScreen(
                     }
                 )
             )
-            Button(onClick = facebookLogin::startLoginProcess) {
-                Text(text = "Facebook Sign In")
-            }
+            HandleSignInWithFacebook(navController = navController)
+
             Button(onClick = kakaoLogin::startLoginProcess) {
                 Text(text = "Kakao Sign In")
             }
+
             Button(onClick = xLogin::startLoginProcess) {
                 Text(text = "xLogin Sign In")
             }
