@@ -28,13 +28,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.brew.wine_route.R
-import com.brew.wine_route.model.signInHandler.EmailPasswordActivity
 import com.brew.wine_route.model.signInHandler.HandleSignInWithFacebook
-import com.brew.wine_route.model.signInHandler.KakaoLoginActivity
 import com.brew.wine_route.model.signInHandler.LoginProcessStarter
-import com.brew.wine_route.model.signInHandler.XLoginActivity
 import com.brew.wine_route.model.signInHandler.handleFailure
 import com.brew.wine_route.model.signInHandler.handleSignIn
+import com.brew.wine_route.screen.LoginScreen
 import com.brew.wine_route.ui.WineRouteAppBar
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.firebase.auth.FirebaseUser
@@ -76,10 +74,7 @@ fun WineRouteNavHost() {
         ) {
             composable(Screen.SignIn.route) {
                 LoginScreen(
-                    navController = navController,
-                    emailPasswordLogin = EmailPasswordActivity(),
-                    kakaoLogin = KakaoLoginActivity(),
-                    xLogin = XLoginActivity(),
+                    navController = navController
                 )
             }
             composable(Screen.Home.route) {
@@ -135,7 +130,7 @@ fun HomeScreen(
 
 // TODO: 임시로 만든 로그인 화면
 @Composable
-fun LoginScreen(
+fun LoginScreen22(
     navController: NavHostController = rememberNavController(),
     emailPasswordLogin: LoginProcessStarter,
     kakaoLogin: LoginProcessStarter,

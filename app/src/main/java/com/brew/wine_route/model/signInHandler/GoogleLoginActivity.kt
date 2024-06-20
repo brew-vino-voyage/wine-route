@@ -2,17 +2,61 @@ package com.brew.wine_route.model.signInHandler
 
 import android.content.ContentValues.TAG
 import android.util.Log
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.ContextCompat.getString
+import androidx.credentials.CredentialManager
 import androidx.credentials.CustomCredential
+import androidx.credentials.GetCredentialRequest
 import androidx.credentials.GetCredentialResponse
 import androidx.credentials.exceptions.GetCredentialException
 import androidx.credentials.exceptions.NoCredentialException
 import androidx.navigation.NavController
+import com.brew.wine_route.R
 import com.brew.wine_route.navigation.Screen
+import com.brew.wine_route.screen.SocialLoginButton
+import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
 
+@Composable
+fun HandleSignInWithGoogle(navController: NavController) {
+    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
+
+    SocialLoginButton(
+        painterResource = R.drawable.google_logo,
+        onClick = {
+            val credentialManager = CredentialManager.create(context)
+
+            val googleIdOption: GetGoogleIdOption = GetGoogleIdOption.Builder()
+                .setFilterByAuthorizedAccounts(false)
+                .setServerClientId(getString(context, R.string.web_client_id))
+                .setAutoSelectEnabled(true)
+                .build()
+
+            val request: GetCredentialRequest = GetCredentialRequest.Builder()
+                .addCredentialOption(googleIdOption)
+                .build()
+
+            coroutineScope.launch {
+                try {
+                    val result = credentialManager.getCredential(
+                        request = request,
+                        context = context,
+                    )
+                    handleSignIn(result, navController)
+                } catch (e: GetCredentialException) {
+                    handleFailure(e, navController)
+                }
+            }
+        }
+    )
+}
 
 fun handleSignIn(result: GetCredentialResponse, navController: NavController) {
     val auth = Firebase.auth

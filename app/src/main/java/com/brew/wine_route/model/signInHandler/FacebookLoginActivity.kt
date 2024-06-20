@@ -9,8 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
+import com.brew.wine_route.R
 import com.brew.wine_route.navigation.Screen
+import com.brew.wine_route.screen.SocialLoginButton
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -64,10 +67,11 @@ fun HandleSignInWithFacebook(
             loginManager.unregisterCallback(callbackManager)
         }
     }
-    Button(onClick = { launcher.launch(listOf("email", "public_profile")) }
-    ) {
-        Text(text = "Facebook Sign In")
-    }
+    SocialLoginButton(
+        painterResource = R.drawable.facebook_logo_primary,
+        color = Color.White,
+        onClick = { launcher.launch(listOf("email", "public_profile")) }
+    )
 }
 
 fun onAuthError(error: Exception) {

@@ -35,11 +35,18 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.brew.wine_route.R
+import com.brew.wine_route.model.signInHandler.HandleSignInWithFacebook
+import com.brew.wine_route.model.signInHandler.HandleSignInWithGoogle
+
+
+// TODO: 이메일 비밀번호 로직 연결하기, 로그인 되는지 확인하기 - firebase
 
 @Preview(showBackground = true)
 @Composable
-fun LoginScreen() {
+fun LoginScreen(navController: NavHostController = rememberNavController()) {
     var clickLogin by remember { mutableStateOf(true) }
     var clickSignup by remember { mutableStateOf(false) }
     var email by remember { mutableStateOf("") }
@@ -73,12 +80,8 @@ fun LoginScreen() {
         LoginTextField(
             value = email,
             onValueChange = { email = it },
-            label = {
-                Text(text = "이메일")
-            },
-            placeholder = {
-                Text(text = "이메일을 입력하세요")
-            },
+            label = { Text(text = "이메일") },
+            placeholder = { Text(text = "이메일을 입력하세요") },
             imageVector = Icons.Rounded.Close
         ) {
             email = ""
@@ -86,12 +89,8 @@ fun LoginScreen() {
         LoginTextField(
             value = password,
             onValueChange = { password = it },
-            label = {
-                Text(text = "비밀번호")
-            },
-            placeholder = {
-                Text(text = "**********")
-            },
+            label = { Text(text = "비밀번호") },
+            placeholder = { Text(text = "**********") },
             hidePassword = hidePassword,
             imageVector = if (hidePassword) Icons.Rounded.Visibility else Icons.Rounded.VisibilityOff
         ) {
@@ -99,16 +98,14 @@ fun LoginScreen() {
         }
         if (clickLogin) {
             GoNextButton(
-                text = "로그인"
-            ) {
-                // click login button
-            }
+                text = "로그인",
+                onClick = {  }
+            )
         } else {
             GoNextButton(
-                text = "회원가입"
-            ) {
-                // click signup button
-            }
+                text = "회원가입",
+                onClick = {  }
+            )
         }
         if (clickLogin) {
             Button(
@@ -129,17 +126,10 @@ fun LoginScreen() {
             horizontalArrangement = Arrangement.SpaceEvenly,
             modifier = Modifier.fillMaxWidth()
         ) {
-            SocialLoginButton(
-                painterResource = R.drawable.google_logo
-            ) {
+            HandleSignInWithGoogle(navController = navController)
+            HandleSignInWithFacebook(navController = navController)
 
-            }
-            SocialLoginButton(
-                painterResource = R.drawable.facebook_logo_primary,
-                color = Color.White
-            ) {
-
-            }
+            // 카카오 로그인
             SocialLoginButton(
                 painterResource = R.drawable.kakaotalk_logo,
                 color = Color(0xFFFFEB00),
@@ -149,6 +139,8 @@ fun LoginScreen() {
             ) {
 
             }
+
+            // 트위터 로그인
             SocialLoginButton(
                 painterResource = R.drawable.twitter_logo_lightmode
             ) {
