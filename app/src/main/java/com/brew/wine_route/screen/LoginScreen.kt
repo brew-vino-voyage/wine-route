@@ -40,19 +40,20 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.brew.wine_route.R
 import com.brew.wine_route.model.signInHandler.HandleSignInWithFacebook
 import com.brew.wine_route.model.signInHandler.HandleSignInWithGoogle
+import com.brew.wine_route.model.signInHandler.TwitterLogin
 import com.brew.wine_route.navigation.Screen
 import com.brew.wine_route.viewModel.SignInViewModel
-
-
-// TODO: 이메일 비밀번호 로직 연결하기, 로그인 되는지 확인하기 - firebase
-
+import com.brew.wine_route.viewModel.SignInViewModelFactory
 
 @Composable
 fun LoginScreen(navController: NavHostController) {
-    val signInViewModel: SignInViewModel = viewModel()
     val context = LocalContext.current
+    val twitterLogin = remember { TwitterLogin(context) }
+    val factory = remember { SignInViewModelFactory(twitterLogin) }
+    val signInViewModel: SignInViewModel = viewModel(factory = factory)
 
     var clickLogin by remember { mutableStateOf(true) }
     var clickSignup by remember { mutableStateOf(false) }
@@ -147,13 +148,35 @@ fun LoginScreen(navController: NavHostController) {
         ) {
             HandleSignInWithGoogle(navController = navController)
             HandleSignInWithFacebook(navController = navController)
-
+            HandleSignInWithTwitter(signInViewModel, navController)
             // 카카오로그인
-
-            // 트위터 로그인
-
         }
     }
+}
+
+@Composable
+private fun HandleSignInWithTwitter(
+    signInViewModel: SignInViewModel,
+    navController: NavHostController
+) {
+    val context = LocalContext.current
+    SocialLoginButton(
+        painterResource = R.drawable.twitter_logo_lightmode,
+        onClick = {
+            signInViewModel.signInWithTwitter(
+                onSuccess = {
+                    navController.navigate(Screen.Home.route)
+                },
+                onError = { errorMessage ->
+                    Toast.makeText(
+                        context,
+                        "Twitter Authentication failed: $errorMessage",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            )
+        }
+    )
 }
 
 
