@@ -1,7 +1,5 @@
 package com.brew.wine_route.navigation
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,31 +12,18 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
-import androidx.core.content.ContextCompat.getString
-import androidx.credentials.CredentialManager
-import androidx.credentials.GetCredentialRequest
-import androidx.credentials.exceptions.GetCredentialException
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.brew.wine_route.R
-import com.brew.wine_route.model.signInHandler.HandleSignInWithFacebook
-import com.brew.wine_route.model.signInHandler.LoginProcessStarter
-import com.brew.wine_route.model.signInHandler.handleFailure
-import com.brew.wine_route.model.signInHandler.handleSignIn
 import com.brew.wine_route.screen.LoginScreen
+import com.brew.wine_route.screen.ResetPasswordScreen
 import com.brew.wine_route.ui.WineRouteAppBar
-import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.launch
 
 
 @Composable
@@ -87,6 +72,11 @@ fun WineRouteNavHost() {
                     }
                 )
             }
+            composable(Screen.ResetPassword.route) {
+                ResetPasswordScreen(
+                    navController = navController
+                )
+            }
             composable(Screen.WineryMap.route) {
                 //                            WineryMapScreen()
             }
@@ -123,70 +113,6 @@ fun HomeScreen(
             }
             Button(onClick = onSignOutClick) {
                 Text(text = "로그아웃")
-            }
-        }
-    }
-}
-
-// TODO: 임시로 만든 로그인 화면
-@Composable
-fun LoginScreen22(
-    navController: NavHostController = rememberNavController(),
-    emailPasswordLogin: LoginProcessStarter,
-    kakaoLogin: LoginProcessStarter,
-    xLogin: LoginProcessStarter,
-) {
-    val context = LocalContext.current
-    val coroutineScope = rememberCoroutineScope()
-
-    Box {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Button(onClick = emailPasswordLogin::startLoginProcess) {
-                Text(text = "이메일/비밀번호로 로그인")
-            }
-            Image(
-                painter = painterResource(id = R.drawable.google_icon_light),
-                contentDescription = "Google Sign In",
-                modifier = Modifier.clickable(
-                    onClick = {
-                        val credentialManager = CredentialManager.create(context)
-
-                        val googleIdOption: GetGoogleIdOption = GetGoogleIdOption.Builder()
-                            .setFilterByAuthorizedAccounts(false)
-                            .setServerClientId(getString(context, R.string.web_client_id))
-                            .setAutoSelectEnabled(true)
-                            .build()
-
-                        val request: GetCredentialRequest = GetCredentialRequest.Builder()
-                            .addCredentialOption(googleIdOption)
-                            .build()
-
-                        coroutineScope.launch {
-                            try {
-                                val result = credentialManager.getCredential(
-                                    request = request,
-                                    context = context,
-                                )
-                                handleSignIn(result, navController)
-                            } catch (e: GetCredentialException) {
-                                handleFailure(e, navController)
-                            }
-                        }
-                    }
-                )
-            )
-            HandleSignInWithFacebook(navController = navController)
-
-            Button(onClick = kakaoLogin::startLoginProcess) {
-                Text(text = "Kakao Sign In")
-            }
-
-            Button(onClick = xLogin::startLoginProcess) {
-                Text(text = "xLogin Sign In")
             }
         }
     }

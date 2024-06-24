@@ -2,9 +2,6 @@ package com.brew.wine_route.model.signInHandler
 
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.ActivityResultLauncher
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
@@ -74,6 +71,6 @@ fun HandleSignInWithFacebook(
     )
 }
 
-fun onAuthError(error: Exception) {
+private fun onAuthError(error: Exception) {
     Log.e("FacebookLogin", "Error signing in with Facebook: ", error)
 }

@@ -1,12 +1,18 @@
 package com.brew.wine_route.model.signInHandler
 
-import androidx.activity.ComponentActivity
+import androidx.compose.runtime.Composable
+import androidx.navigation.NavController
+import com.brew.wine_route.R
+import com.brew.wine_route.screen.SocialLoginButton
 
+// TODO: 트위터 로그인
+@Composable
+fun HandleSignInWithX(navController: NavController) {
+    SocialLoginButton(
+        painterResource = R.drawable.twitter_logo_lightmode
+    ) {
 
-class XLoginActivity : ComponentActivity(), LoginProcessStarter {
-    override fun startLoginProcess() {
-        // X 로그인 프로세스 시작
-        // 텍스트필드에서 값을 입력받으면 그 값을 이용해 로그인 프로세스를 시작하기
-        // X 로그인 프로세스는 별도의 로그인 API를 사용하는 경우에 사용
     }
 }
+
+

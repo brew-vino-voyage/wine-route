@@ -1,11 +1,26 @@
 package com.brew.wine_route.model.signInHandler
 
-import androidx.activity.ComponentActivity
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.brew.wine_route.R
+import com.brew.wine_route.screen.SocialLoginButton
 
-class KakaoLoginActivity : ComponentActivity(), LoginProcessStarter {
-    override fun startLoginProcess() {
-        // 카카오 로그인 프로세스 시작
-        // 텍스트필드에서 값을 입력받으면 그 값을 이용해 로그인 프로세스를 시작하기
-        // 카카오 로그인 프로세스는 별도의 로그인 API를 사용하는 경우에 사용
+// TODO: 카카오 로그인
+@Composable
+fun HandleSignInWithKakao(navController: NavController) {
+    // 카카오 로그인
+    SocialLoginButton(
+        painterResource = R.drawable.kakaotalk_logo,
+        color = Color(0xFFFFEB00),
+        modifier = Modifier
+            .size(40.dp)
+            .padding(top = 2.dp, start = 1.dp)
+    ) {
+
     }
 }

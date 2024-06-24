@@ -58,7 +58,7 @@ fun HandleSignInWithGoogle(navController: NavController) {
     )
 }
 
-fun handleSignIn(result: GetCredentialResponse, navController: NavController) {
+private fun handleSignIn(result: GetCredentialResponse, navController: NavController) {
     val auth = Firebase.auth
     when (val credential = result.credential) {
         is CustomCredential -> {
@@ -81,7 +81,7 @@ fun handleSignIn(result: GetCredentialResponse, navController: NavController) {
     }
 }
 
-fun handleFailure(e: GetCredentialException, navController: NavController) {
+private fun handleFailure(e: GetCredentialException, navController: NavController) {
     if (e is NoCredentialException) {
         Log.e(TAG, "NoCredentialException", e)
         navController.navigate(Screen.SignIn.route)
