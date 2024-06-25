@@ -46,13 +46,13 @@ import com.brew.wine_route.model.signInHandler.HandleSignInWithGoogle
 import com.brew.wine_route.model.signInHandler.TwitterLogin
 import com.brew.wine_route.navigation.Screen
 import com.brew.wine_route.viewModel.SignInViewModel
-import com.brew.wine_route.viewModel.SignInViewModelFactory
+import com.brew.wine_route.viewModel.ViewModelFactory
 
 @Composable
 fun LoginScreen(navController: NavHostController) {
     val context = LocalContext.current
     val twitterLogin = remember { TwitterLogin(context) }
-    val factory = remember { SignInViewModelFactory(twitterLogin) }
+    val factory = remember { ViewModelFactory(twitterLogin) }
     val signInViewModel: SignInViewModel = viewModel(factory = factory)
 
     var clickLogin by remember { mutableStateOf(true) }
@@ -86,7 +86,8 @@ fun LoginScreen(navController: NavHostController) {
             }
         }
         // 이메일, 비밀번호 입력
-        LoginTextField(value = email,
+        LoginTextField(
+            value = email,
             onValueChange = { email = it },
             label = { Text(text = "이메일") },
             placeholder = { Text(text = "이메일을 입력하세요") },
@@ -94,7 +95,8 @@ fun LoginScreen(navController: NavHostController) {
         ) {
             email = ""
         }
-        LoginTextField(value = password,
+        LoginTextField(
+            value = password,
             onValueChange = { password = it },
             label = { Text(text = "비밀번호") },
             placeholder = { Text(text = "**********") },
@@ -120,15 +122,15 @@ fun LoginScreen(navController: NavHostController) {
         } else {
             PerformLoginButton(text = "회원가입", onClick = {
                 signInViewModel.createAccount(email,
-                        password,
-                        onSuccess = { navController.navigate(Screen.SignIn.route) },
-                        onFailure = { exception ->
-                            Toast.makeText(
-                                context,
-                                "Account creation failed: ${exception?.message}",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        })
+                    password,
+                    onSuccess = { navController.navigate(Screen.SignIn.route) },
+                    onFailure = { exception ->
+                        Toast.makeText(
+                            context,
+                            "Account creation failed: ${exception?.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    })
             })
         }
         // 비밀번호를 잊었을 때 재설정하는 화면으로 이동하는 버튼
@@ -267,7 +269,8 @@ fun ResetPasswordScreen(navController: NavHostController) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            OutlinedTextField(value = email,
+            OutlinedTextField(
+                value = email,
                 onValueChange = { email = it },
                 label = { Text(text = "이메일") },
                 placeholder = { Text(text = "이메일을 입력하세요") },

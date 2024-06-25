@@ -77,18 +77,6 @@ fun WineRouteNavHost() {
                     navController = navController
                 )
             }
-            composable(Screen.WineryMap.route) {
-                //                            WineryMapScreen()
-            }
-            composable(Screen.Profile.route) {
-                //                            ProfileScreen()
-            }
-            composable(Screen.ProductListing.route) {
-                //                            ProductListingScreen()
-            }
-            composable(Screen.Community.route) {
-                //                            CommunityScreen()
-            }
         }
     }
 }

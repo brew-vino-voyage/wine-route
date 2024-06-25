@@ -77,7 +77,7 @@ class SignInViewModel(private val twitterLogin: TwitterLogin) : ViewModel() {
     }
 }
 
-class SignInViewModelFactory(private val twitterLogin: TwitterLogin) : ViewModelProvider.Factory {
+class ViewModelFactory(private val twitterLogin: TwitterLogin) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SignInViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
