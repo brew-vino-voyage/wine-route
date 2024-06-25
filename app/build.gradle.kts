@@ -51,13 +51,19 @@ android {
 }
 
 dependencies {
+    val credentialVersion = "1.2.2"
+    val googleIdVersion = "1.1.0"
+    implementation("androidx.credentials:credentials:$credentialVersion")
+    implementation("androidx.credentials:credentials-play-services-auth:$credentialVersion")
+    implementation("com.google.android.libraries.identity.googleid:googleid:$googleIdVersion")
+    implementation(libs.kotlinx.coroutines.play.services)
     implementation(platform(libs.firebase.bom))
+    implementation(libs.play.services.auth)
     implementation(libs.firebase.storage)
-    implementation(libs.firebase.auth.ktx)
+    implementation(libs.google.firebase.auth.ktx)
     implementation(libs.firebase.firestore.ktx)
-    implementation(libs.android.facebook.login)
+    implementation(libs.facebook.android.sdk)
     implementation(libs.firebase.ui.auth)
-    implementation(libs.facebook.login)
     implementation(libs.androidx.core.ktx.v1131)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
@@ -72,6 +78,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.navigation.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -79,4 +86,7 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    // material 아이콘
+    implementation(libs.androidx.material)
+    implementation ("androidx.compose.material:material-icons-extended:$1.6.8")
 }
