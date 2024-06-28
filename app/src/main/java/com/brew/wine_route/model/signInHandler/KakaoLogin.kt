@@ -1,4 +1,13 @@
 package com.brew.wine_route.model.signInHandler
 
-// TODO: 카카오 로그인
 
+import android.app.Application
+import com.kakao.sdk.common.KakaoSdk
+
+
+class KakaoLogin : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        KakaoSdk.init(this, "@string/kakao_app_native_key")
+    }
+}

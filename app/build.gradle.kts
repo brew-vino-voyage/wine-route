@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("com.google.gms.google-services")
+    id("kotlin-android")
 }
 
 android {
@@ -88,5 +89,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     // material 아이콘
     implementation(libs.androidx.material)
-    implementation ("androidx.compose.material:material-icons-extended:$1.6.8")
+    implementation("androidx.compose.material:material-icons-extended:$1.6.8")
+    // 카카오 sdk
+    implementation(libs.v2.all)
 }

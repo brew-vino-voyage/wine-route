@@ -6,11 +6,13 @@ coreKtxVersion = "1.13.1"
 facebookAndroidSdk = "16.0.0"
 firebaseBom = "32.3.1"
 firebaseUiAuth = "8.0.2"
+gradle = "7.0.4"
 kotlin = "1.9.0"
 coreKtx = "1.10.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
+kotlinGradlePlugin = "1.5.21"
 kotlinxCoroutinesPlayServices = "1.6.4"
 lifecycleRuntimeKtx = "2.6.1"
 activityCompose = "1.8.0"
@@ -21,6 +23,7 @@ material3 = "1.2.1"
 navigationFragmentKtx = "2.7.7"
 navigationCompose = "2.7.7"
 playServicesAuth = "21.2.0"
+v2All = "2.20.1"
 version = "1.2.2"
 
 [libraries]
@@ -43,6 +46,7 @@ firebase-storage = { module = "com.google.firebase:firebase-storage" }
 firebase-ui-auth = { module = "com.firebaseui:firebase-ui-auth", version.ref = "firebaseUiAuth" }
 google-firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx" }
 googleid = { module = "com.google.android.libraries.identity.googleid:googleid", version.ref = "version" }
+gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -57,9 +61,11 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinGradlePlugin" }
 kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinxCoroutinesPlayServices" }
 play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
+v2-all = { module = "com.kakao.sdk:v2-all", version.ref = "v2All" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

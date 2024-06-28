@@ -10,6 +10,8 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.user.UserApiClient
 
 class SignInViewModel(private val twitterLogin: TwitterLogin) : ViewModel() {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
